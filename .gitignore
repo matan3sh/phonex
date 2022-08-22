@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+sanity_phonex/node_modules
 /.pnp
 .pnp.js
 
