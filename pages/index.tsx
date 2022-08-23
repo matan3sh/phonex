@@ -1,20 +1,23 @@
-import type { NextPage } from "next";
-
+import { client } from "../lib/client";
 import { Footer, HeroBanner } from "../components";
+import { Banner, Product } from "../typings";
 
-const Home: NextPage = () => {
+interface IProps {
+  products: Product[];
+  banners: Banner[];
+}
+
+const Home = ({ products, banners }: IProps) => {
   return (
     <>
-      <HeroBanner />
+      <HeroBanner heroBanner={banners[0]} />
 
       <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many variations</p>
       </div>
       <div className="products-container">
-        {["Product 1", "Product 2", "Product 3", "Product 4", "Product 5"].map(
-          (product) => product
-        )}
+        {products.map((product) => product.name)}
       </div>
 
       <Footer />
@@ -23,3 +26,15 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const productsQuery = '*[_type == "product"]';
+  const products = await client.fetch(productsQuery);
+
+  const bannerQuery = '*[_type == "banner"]';
+  const banners = await client.fetch(bannerQuery);
+
+  return {
+    props: { products, banners },
+  };
+};
