@@ -1,5 +1,9 @@
 import { client } from "../lib/client";
-import { Footer, HeroBanner, Product as ProductItem } from "../components";
+import {
+  FooterBanner,
+  HeroBanner,
+  Product as ProductItem,
+} from "../components";
 import { Banner, Product } from "../typings";
 
 interface IProps {
@@ -23,7 +27,7 @@ const Home = ({ products, banners }: IProps) => {
         ))}
       </div>
 
-      <Footer />
+      <FooterBanner footerBanner={banners[0]} />
     </>
   );
 };
