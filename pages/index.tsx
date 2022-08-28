@@ -1,9 +1,5 @@
 import { client } from "../lib/client";
-import {
-  FooterBanner,
-  HeroBanner,
-  Product as ProductItem,
-} from "../components";
+import { FooterBanner, HeroBanner, Products } from "../components";
 import { Banner, Product } from "../typings";
 
 interface IProps {
@@ -21,11 +17,7 @@ const Home = ({ products, banners }: IProps) => {
         <p>Speakers of many variations</p>
       </div>
 
-      <div className="products-container">
-        {products.map((product) => (
-          <ProductItem key={product._id} product={product} />
-        ))}
-      </div>
+      <Products products={products} />
 
       <FooterBanner footerBanner={banners[0]} />
     </>
