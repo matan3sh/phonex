@@ -10,7 +10,7 @@ export type Product = {
   slug: {
     current: string;
   };
-  datails: string;
+  details: string;
   name: string;
   price: number;
   image: Image[];
