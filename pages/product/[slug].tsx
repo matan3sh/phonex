@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   AiOutlineMinus,
   AiOutlinePlus,
@@ -14,28 +15,33 @@ interface IProps {
 }
 
 export default function ProductDetails({ products, product }: IProps) {
+  const [index, setIndex] = useState<number>(0);
+
   return (
     <div>
       <div className="product-detail-container">
         <div>
           <div className="image-container">
             <img
-              src={urlFor(product.image && product.image[0]).url()}
+              src={urlFor(product.image && product.image[index]).url()}
               alt={product.name}
+              className="product-detail-image"
             />
           </div>
 
-          {/* <div className="small-images-container">
+          <div className="small-images-container">
             {product.image?.map((item, i) => (
               <img
                 src={urlFor(item).url()}
                 alt={item.asset.url}
-                key={item.asset.url}
-                className=""
-                onMouseEnter={undefined}
+                key={i}
+                className={
+                  i === index ? "small-image selected-image" : "small-image"
+                }
+                onMouseEnter={() => setIndex(i)}
               />
             ))}
-          </div> */}
+          </div>
         </div>
 
         <div className="product-detail-desc">
@@ -81,7 +87,7 @@ export default function ProductDetails({ products, product }: IProps) {
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
-          <div className="maylike-products-container">
+          <div className="maylike-products-container track">
             {products.map((product) => (
               <ProductItem key={product._id} product={product} />
             ))}
